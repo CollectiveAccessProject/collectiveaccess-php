@@ -4,14 +4,14 @@ Please visit http://www.collectiveaccess.org for more information and refer to
 http://docs.collectiveaccess.org for detailed information on the service API and
 other features of the core software.
 
-To use this library, simply copy all the project files into a subdirectory of your
-project and include the class file of the service you want to use.
+You can install this library via composer and then take advantage of composers
+flexible autoloading feature. From there you can just use all the service classes
+in the CollectiveAccessService namespace.
 
 For example:
 
 ```php
-require './cawrapper/ItemService.php':
-$client = new ItemService("http://localhost/","ca_objects","GET",1);
+$client = new CollectiveAccessService\ItemService("http://localhost/","ca_objects","GET",1);
 $result = $client->request();
 print_r($result->getRawData());
 ```
@@ -21,7 +21,7 @@ This should get you a generic summary for the object record with object_id 1.
 Here are some more simple examples for the other service endpoints to get you started:
 
 ```php
-$vo_client = new ModelService("http://localhost/","ca_entities");
+$vo_client = new CollectiveAccessService\ModelService("http://localhost/","ca_entities");
 $vo_client->setRequestBody(array("types" => array("corporate_body")));
 $vo_result = $vo_client->request();
 
@@ -29,7 +29,7 @@ $vo_result->isOk() ? print_r($vo_result->getRawData()) : print_r($vo_result->get
 ```
 
 ```php
-$vo_client = new SearchService("http://localhost/","ca_objects","*");
+$vo_client = new CollectiveAccessService\SearchService("http://localhost/","ca_objects","*");
 $vo_client->setRequestBody(array(
 	"bundles" => array(
 		"ca_objects.access" => array("convertCodesToDisplayText" => true),
@@ -54,21 +54,17 @@ are not used in the mean time.
 Now back to option one - the constants:
 
 ```php
-require './ca-service-wrapper/ItemService.php';
-
 define('__CA_SERVICE_API_USER__', 'administrator');
 define('__CA_SERVICE_API_KEY__', 'dublincore');
 
-$o_service = new ItemService('http://localhost', 'ca_objects', 'GET', 1);
+$o_service = new CollectiveAccessService\ItemService('http://localhost', 'ca_objects', 'GET', 1);
 $o_result = $o_service->request();
 ```
 
 You can also use a simple setter:
 
 ```php
-require './ca-service-wrapper/ItemService.php';
-
-$o_service = new ItemService('http://localhost', 'ca_objects', 'GET', 1);
+$o_service = new CollectiveAccessService\ItemService('http://localhost', 'ca_objects', 'GET', 1);
 $o_service->setCredentials('administrator', 'dublincore');
 $o_result = $o_service->request();
 ```
@@ -77,9 +73,7 @@ The 3rd option (and probably most suitable for production) is to pass the creden
 `CA_SERVICE_API_USER` and `CA_SERVICE_API_KEY`. Imagine this simple script as `authtest.php`
 
 ```php
-require './ca-service-wrapper/ItemService.php';
-
-$o_service = new ItemService('http://localhost', 'ca_objects', 'GET', 1);
+$o_service = new CollectiveAccessService\ItemService('http://localhost', 'ca_objects', 'GET', 1);
 $o_result = $o_service->request();
 ```
 
