@@ -1,5 +1,5 @@
 {
-    "name": "CollectiveAccessProject/collectiveaccess-php",
+    "name": "collectiveaccess-service/php",
     "type": "library",
     "description": "A simple PHP wrapper for the CollectiveAccess web service API",
     "keywords": ["collectiveaccess", "providence"],
