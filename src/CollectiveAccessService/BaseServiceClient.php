@@ -8,7 +8,7 @@ abstract class BaseServiceClient {
 	private $opa_request_body = array();
 	private $ops_request_method = '';
 	private $ops_service_url = '';
-	private $ops_table = '';
+	private $ops_endpoint = '';
 	# ----------------------------------------------
 	private $ops_auth_url = '';
 	private $ops_auth_token = '';
@@ -49,6 +49,7 @@ abstract class BaseServiceClient {
 			return false;
 		}
 		$this->ops_request_method = $ps_method;
+		return $this;
 	}
 	# ----------------------------------------------
 	public function getRequestMethod() {
@@ -57,22 +58,25 @@ abstract class BaseServiceClient {
 	# ----------------------------------------------
 	public function setRequestBody($pa_request_body) {
 		$this->opa_request_body = $pa_request_body;
+		return $this;
 	}
 	# ----------------------------------------------
 	public function getRequestBody() {
 		return $this->opa_request_body;
 	}
 	# ----------------------------------------------
-	public function setTable($ps_table) {
-		$this->ops_table = $ps_table;
+	public function setEndpoint($ps_endpoint) {
+		$this->ops_endpoint = $ps_endpoint;
+		return $this;
 	}
 	# ----------------------------------------------
-	public function getTable() {
-		return $this->ops_table;
+	public function getEndpoint() {
+		return $this->ops_endpoint;
 	}
 	# ----------------------------------------------
 	public function addGetParameter($ps_param_name,$ps_value) {
 		$this->opa_get_parameters[$ps_param_name] = $ps_value;
+		return $this;
 	}
 	# ----------------------------------------------
 	public function getAllGetParameters() {
@@ -86,6 +90,7 @@ abstract class BaseServiceClient {
 	public function setLang($ps_lang) {
 		$this->ops_lang = $ps_lang;
 		$this->addGetParameter("lang",$ps_lang);
+		return $this;
 	}
 	# ----------------------------------------------
 	public function getLang() {
@@ -95,6 +100,7 @@ abstract class BaseServiceClient {
 	public function setCredentials($ps_user, $ps_pass) {
 		$this->ops_user = $ps_user;
 		$this->ops_key = $ps_pass;
+		return $this;
 	}
 	# ----------------------------------------------
 	public function request() {
@@ -113,7 +119,7 @@ abstract class BaseServiceClient {
 
 		$vs_get = sizeof($va_get)>0 ? "?".join("&",$va_get) : "";
 
-		$vs_query_url = preg_replace("/\/$/", '', $this->ops_service_url."/".$this->getTable().$vs_get);
+		$vs_query_url = preg_replace("/\/$/", '', $this->ops_service_url."/".$this->getEndpoint().$vs_get);
 		$vo_handle = curl_init($vs_query_url);
 
 		curl_setopt($vo_handle, CURLOPT_CUSTOMREQUEST, $vs_method);

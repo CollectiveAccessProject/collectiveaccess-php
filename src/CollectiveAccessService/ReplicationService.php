@@ -8,7 +8,7 @@ class ReplicationService extends BaseServiceClient {
 		parent::__construct($ps_base_url,"replication");
 
 		$this->setRequestMethod("GET");
-		$this->setTable($ps_call);
+		$this->setEndpoint($ps_call);
 	}
 	# ----------------------------------------------
 }

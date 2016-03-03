@@ -8,7 +8,7 @@ class BrowseService extends BaseServiceClient {
 		parent::__construct($ps_base_url,"browse");
 
 		$this->setRequestMethod($ps_mode);
-		$this->setTable($ps_table);
+		$this->setEndpoint($ps_table);
 	}
 	# ----------------------------------------------
 }

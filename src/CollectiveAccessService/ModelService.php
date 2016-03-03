@@ -8,7 +8,7 @@ class ModelService extends BaseServiceClient {
 		parent::__construct($ps_base_url,"model");
 
 		$this->setRequestMethod("GET");
-		$this->setTable($ps_table);
+		$this->setEndpoint($ps_table);
 	}
 	# ----------------------------------------------
 }

@@ -8,7 +8,7 @@ class SearchService extends BaseServiceClient {
 		parent::__construct($ps_base_url,"find");
 
 		$this->setRequestMethod("GET");
-		$this->setTable($ps_table);
+		$this->setEndpoint($ps_table);
 		$this->addGetParameter("q",$ps_query);
 	}
 	# ----------------------------------------------

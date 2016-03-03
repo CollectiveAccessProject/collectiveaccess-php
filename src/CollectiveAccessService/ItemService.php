@@ -8,7 +8,7 @@ class ItemService extends BaseServiceClient {
 		parent::__construct($ps_base_url,"item");
 
 		$this->setRequestMethod($ps_mode);
-		$this->setTable($ps_table);
+		$this->setEndpoint($ps_table);
 		$this->addGetParameter("id",$pn_id);
 	}
 	# ----------------------------------------------
