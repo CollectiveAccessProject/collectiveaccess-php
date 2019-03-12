@@ -1,6 +1,6 @@
-A simple PHP wrapper for the new JSON-based REST web service API of CollectiveAccess
+A simple PHP wrapper for the CollectiveAccess JSON-based REST web service API
 
-Please visit http://www.collectiveaccess.org for more information and refer to
+Please visit https://www.collectiveaccess.org for more information and refer to
 http://docs.collectiveaccess.org for detailed information on the service API and
 other features of the core software.
 
