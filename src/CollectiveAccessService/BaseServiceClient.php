@@ -15,6 +15,9 @@ abstract class BaseServiceClient {
 	private $ops_user = null;
 	private $ops_key = null;
 	private $ops_token_storage_path = '';
+	
+	private $retries = 0;
+	private $retry_delay = 1000;	// in milliseconds
 	# ----------------------------------------------
 	private $ops_lang = null;
 	# ----------------------------------------------
@@ -108,7 +111,41 @@ abstract class BaseServiceClient {
 		return $this;
 	}
 	# ----------------------------------------------
-	public function request() {
+	/**
+	 *
+	 */
+	public function setRetries(int $retries) {
+		if ($retries >= 0) { 
+			$this->retries = $retries;
+		}
+		return $this;
+	}
+	# ----------------------------------------------
+	/**
+	 *
+	 */
+	public function getRetries() {
+		return $this->retries;
+	}
+	# ----------------------------------------------
+	/**
+	 * Sets wait time between retries, in milliseconds
+	 */
+	public function setRetryDelay(int $retry_delay) {
+		if ($retry_delay >= 0) { 
+			$this->retry_delay = $retry_delay;
+		}
+		return $this;
+	}
+	# ----------------------------------------------
+	/**
+	 *
+	 */
+	public function getRetryDelay() {
+		return $this->retry_delay;
+	}
+	# ----------------------------------------------
+	public function request($retry=0) {
 		if(!($vs_method = $this->getRequestMethod())) {
 			return false;
 		}
@@ -139,6 +176,14 @@ abstract class BaseServiceClient {
 		}
 
 		$vs_exec = curl_exec($vo_handle);
+		
+		if (($vs_exec === false) && ($retry < $this->getRetries())) {
+			if (($retry_delay = $this->getRetryDelay()) > 0) {
+				usleep($retry_delay * 1000);
+			}
+			return $this->request($retry + 1);
+		}	
+		
 		$vn_code = curl_getinfo($vo_handle, CURLINFO_HTTP_CODE);
 		curl_close($vo_handle);
 
@@ -155,7 +200,7 @@ abstract class BaseServiceClient {
 			}
 		}
 
-		return new ServiceResult($vs_exec);
+		return ($vs_exec === false) ? null : new ServiceResult($vs_exec);
 	}
 	# ----------------------------------------------
 	protected function authenticate() {
