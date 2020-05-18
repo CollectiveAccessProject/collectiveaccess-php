@@ -1,10 +1,10 @@
-== A simple PHP wrapper for the CollectiveAccess JSON-based REST web service API ==
+## A simple PHP wrapper for the CollectiveAccess JSON-based REST web service API
 
 Please visit https://www.collectiveaccess.org for more information and refer to
 https://manual.collectiveaccess.org for detailed information on the service API and
 other features of the core software.
 
-=== Basic usage === 
+### Basic usage 
 
 You can install this library via composer and then take advantage of composers
 flexible autoloading feature. From there you can just use all the service classes
@@ -43,7 +43,7 @@ $vo_result = $vo_client->request();
 
 $vo_result->isOk() ? print_r($vo_result->getRawData()) : print_r($vo_result->getErrors());
 ```
-=== Authentication === 
+### Authentication
 
 To use authentication, you basically have 3 options. The first is to use the PHP constants
 `__CA_SERVICE_API_USER__` and `__CA_SERVICE_API_KEY__` as shown in the next example,
@@ -90,7 +90,7 @@ php authtest.php
 
 To do this in a web server setting, you could look into [apache's mod_env](http://httpd.apache.org/docs/2.4/mod/mod_env.html).
 
-=== Retrying failed connections ===
+### Retrying failed connections 
 
 As of version 1.1.3, the wrapper can automatically retry failed connections. In this context "failure" occurs when a connection cannot be established or is terminated
 while a request is in progress. A request that returns an HTTP error such as 401 (authentication required) will not be retried.
