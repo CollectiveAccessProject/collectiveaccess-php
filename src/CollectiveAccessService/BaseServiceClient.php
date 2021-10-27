@@ -216,7 +216,7 @@ abstract class BaseServiceClient {
 		curl_setopt($vo_handle, CURLOPT_FOLLOWLOCATION, true);
 
 		// basic auth
-		curl_setopt($vo_handle, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+		curl_setopt($vo_handle, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		curl_setopt($vo_handle, CURLOPT_USERPWD, $this->ops_user.':'.$this->ops_key);
 
 		$vs_exec = curl_exec($vo_handle);
