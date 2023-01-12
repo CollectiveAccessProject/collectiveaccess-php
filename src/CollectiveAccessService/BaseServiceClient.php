@@ -172,11 +172,10 @@ abstract class BaseServiceClient {
 
 		$va_body = $this->getRequestBody();
 		if(is_array($va_body) && sizeof($va_body)>0) {
-			curl_setopt($vo_handle, CURLOPT_POSTFIELDS, json_encode($va_body));
+			curl_setopt($vo_handle, CURLOPT_POSTFIELDS, json_encode($va_body, JSON_PARTIAL_OUTPUT_ON_ERROR|JSON_INVALID_UTF8_IGNORE));
 		}
 
 		$vs_exec = curl_exec($vo_handle);
-		
 		if (($vs_exec === false) && ($retry < $this->getRetries())) {
 			if (($retry_delay = $this->getRetryDelay()) > 0) {
 				usleep($retry_delay * 1000);
