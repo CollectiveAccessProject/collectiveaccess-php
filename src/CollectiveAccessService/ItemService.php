@@ -5,7 +5,7 @@ namespace CollectiveAccessService;
 class ItemService extends BaseServiceClient {
 	# ----------------------------------------------
 	public function __construct($ps_base_url,$ps_table,$ps_mode,$pn_id=null){
-		parent::__construct($ps_base_url,"item");
+		parent::__construct($ps_base_url,"item", true);
 
 		$this->setRequestMethod($ps_mode);
 		$this->setEndpoint($ps_table);
